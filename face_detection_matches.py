@@ -3,7 +3,7 @@ import cv2
 from matplotlib import pyplot as plt
 from os import listdir
 from os.path import isfile, join
-mypath = '/home/nobrega/BACKUP/Documents/Doutorado/PESQUISA/pictures/'
+mypath = '.../pictures/'
 onlyfiles = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
 
 def pca(X):
