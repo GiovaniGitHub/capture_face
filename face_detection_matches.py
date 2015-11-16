@@ -1,11 +1,19 @@
 import numpy as np
 import cv2
-from matplotlib import pyplot as plt
 from os import listdir
 from os.path import isfile, join
-mypath = '.../pictures/'
-onlyfiles = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
+from capture_face import *
+from utils import *
+from getMatches import *
+mypath = 'pictures/'
+qtd = 3
 
+list_imgs = [PIL2array(i) for i in capture_face(qtd)]
+dict_faces = {}
+for i,x in enumerate(list_imgs):
+    dict_faces.update({i:face_detectDB(x,mypath)})
+
+'''
 for i in onlyfiles:
 	for j in onlyfiles:
 		sift = cv2.SIFT()
@@ -18,3 +26,4 @@ for i in onlyfiles:
 =======
 
 >>>>>>> a08189dba778dfd2372b17d7f6aa43c6b557a5ab
+'''

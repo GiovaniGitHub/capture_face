@@ -12,36 +12,25 @@ def crop(img):
     return sub_face
 #cascPath = sys.argv[1]
 faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
-
-video_capture = cv2.VideoCapture(0)
-
-while True:
+def capture_face(qtd):
+    video_capture = cv2.VideoCapture(0)
+    faces_captured = []
+    while len(faces_captured) != qtd:
     # Capture frame-by-frame
-    ret, frame = video_capture.read()
+        ret, frame = video_capture.read()
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    faces = faceCascade.detectMultiScale(
-        gray,
-        scaleFactor=1.1,
-        minNeighbors=5,
-        minSize=(30, 30),
-        flags=cv2.cv.CV_HAAR_SCALE_IMAGE
-    )
-
-    # Draw a rectangle around the faces
-    for (x, y, w, h) in faces:
-    	img = Image2.fromarray(frame)
-    	img.crop((x,y,x+w,y+h)).save('teste.png')
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
-    # Display the resulting frame
-    cv2.imshow('Video', frame)
-
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-
-        break
-
+        faces = faceCascade.detectMultiScale(
+            gray,
+            scaleFactor=1.1,
+            minNeighbors=5,
+            minSize=(30, 30),
+            flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+            )
+        for (x, y, w, h) in faces:
+    	       img = Image2.fromarray(frame)
+    	       #img.crop((x,y,x+w,y+h)).save('teste.png')
+               faces_captured.append(img.crop((x,y,x+w,y+h)))
+    return faces_captured
 # When everything is done, release the capture
-video_capture.release()
-cv2.destroyAllWindows()
