@@ -62,7 +62,6 @@ for i in onlyfiles:
 		sift = cv2.SIFT()
 		img1 = cv2.imread(mypath+i,0)          # queryImage
 		img2 = cv2.imread(mypath+j,0) # trainImage
-		V,S,img1_me = pca(img1)
-		V,S,img2_me = pca(img2)
+		#V,S,img1_me = pca(img1)
+		#V,S,img2_me = pca(img2)
 		print i," ",j," ",len(getMatches(img1,img2))
-	
